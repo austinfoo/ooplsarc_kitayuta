@@ -1,5 +1,5 @@
 // --------------------------------
-// projects/collatz/TestCollatz.c++
+// projects/kitayuta/TestKitayuta.c++
 // Copyright (C) 2015
 // Glenn P. Downing
 // --------------------------------
@@ -17,21 +17,21 @@
 
 #include "gtest/gtest.h"
 
-#include "Collatz.h"
+#include "Kitayuta.h"
 
 using namespace std;
 
 // -----------
-// TestCollatz
+// TestKitayuta
 // -----------
 
 // ----
 // read
 // ----
 
-TEST(CollatzFixture, read) {
+TEST(KitayutaFixture, read) {
     string s("1 10\n");
-    const pair<int, int> p = collatz_read(s);
+    const pair<int, int> p = kitayuta_read(s);
     ASSERT_EQ( 1, p.first);
     ASSERT_EQ(10, p.second);}
 
@@ -39,85 +39,85 @@ TEST(CollatzFixture, read) {
 // eval
 // ----
 
-TEST(CollatzFixture, eval_1) {
-    const int v = collatz_eval(1, 10);
+TEST(KitayutaFixture, eval_1) {
+    const int v = kitayuta_eval(1, 10);
     ASSERT_EQ(20, v);}
 
-TEST(CollatzFixture, eval_2) {
-    const int v = collatz_eval(100, 200);
+TEST(KitayutaFixture, eval_2) {
+    const int v = kitayuta_eval(100, 200);
     ASSERT_EQ(125, v);}
 
-TEST(CollatzFixture, eval_3) {
-    const int v = collatz_eval(201, 210);
+TEST(KitayutaFixture, eval_3) {
+    const int v = kitayuta_eval(201, 210);
     ASSERT_EQ(89, v);}
 
-TEST(CollatzFixture, eval_4) {
-    const int v = collatz_eval(900, 1000);
+TEST(KitayutaFixture, eval_4) {
+    const int v = kitayuta_eval(900, 1000);
     ASSERT_EQ(174, v);}
 
-TEST(CollatzFixture, eval_5) {
-    const int v = collatz_eval(1000, 900);
+TEST(KitayutaFixture, eval_5) {
+    const int v = kitayuta_eval(1000, 900);
     ASSERT_EQ(174, v);}
 
-TEST(CollatzFixture, eval_6) {
-    const int v = collatz_eval(1, 1);
+TEST(KitayutaFixture, eval_6) {
+    const int v = kitayuta_eval(1, 1);
     ASSERT_EQ(1, v);}
 
 // -----
 // print
 // -----
 
-TEST(CollatzFixture, print) {
+TEST(KitayutaFixture, print) {
     ostringstream w;
-    collatz_print(w, 1, 10, 20);
+    kitayuta_print(w, 1, 10, 20);
     ASSERT_EQ("1 10 20\n", w.str());}
 
 // -----
 // solve
 // -----
 
-TEST(CollatzFixture, solve) {
+TEST(KitayutaFixture, solve) {
     istringstream r("1 10\n100 200\n201 210\n900 1000\n 1000 900\n 1 1\n");
     ostringstream w;
-    collatz_solve(r, w);
+    kitayuta_solve(r, w);
     ASSERT_EQ("1 10 20\n100 200 125\n201 210 89\n900 1000 174\n1000 900 174\n1 1 1\n", w.str());}
 
 /*
-% g++ -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall Collatz.c++ TestCollatz.c++ -o TestCollatz -lgtest -lgtest_main -lpthread
+% g++ -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall Kitayuta.c++ TestKitayuta.c++ -o TestKitayuta -lgtest -lgtest_main -lpthread
 
 
 
-% valgrind TestCollatz                                         >  TestCollatz.out 2>&1
-% gcov -b Collatz.c++     | grep -A 5 "File 'Collatz.c++'"     >> TestCollatz.out
-% gcov -b TestCollatz.c++ | grep -A 5 "File 'TestCollatz.c++'" >> TestCollatz.out
+% valgrind TestKitayuta                                         >  TestKitayuta.out 2>&1
+% gcov -b Kitayuta.c++     | grep -A 5 "File 'Kitayuta.c++'"     >> TestKitayuta.out
+% gcov -b TestKitayuta.c++ | grep -A 5 "File 'TestKitayuta.c++'" >> TestKitayuta.out
 
 
 
-% cat TestCollatz.out
+% cat TestKitayuta.out
 ==14225== Memcheck, a memory error detector
 ==14225== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
 ==14225== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
-==14225== Command: TestCollatz
+==14225== Command: TestKitayuta
 ==14225==
 Running main() from gtest_main.cc
 [==========] Running 7 tests from 1 test case.
 [----------] Global test environment set-up.
-[----------] 7 tests from Collatz
-[ RUN      ] Collatz.read
-[       OK ] Collatz.read (31 ms)
-[ RUN      ] Collatz.eval_1
-[       OK ] Collatz.eval_1 (5 ms)
-[ RUN      ] Collatz.eval_2
-[       OK ] Collatz.eval_2 (3 ms)
-[ RUN      ] Collatz.eval_3
-[       OK ] Collatz.eval_3 (3 ms)
-[ RUN      ] Collatz.eval_4
-[       OK ] Collatz.eval_4 (3 ms)
-[ RUN      ] Collatz.print
-[       OK ] Collatz.print (17 ms)
-[ RUN      ] Collatz.solve
-[       OK ] Collatz.solve (10 ms)
-[----------] 7 tests from Collatz (88 ms total)
+[----------] 7 tests from Kitayuta
+[ RUN      ] Kitayuta.read
+[       OK ] Kitayuta.read (31 ms)
+[ RUN      ] Kitayuta.eval_1
+[       OK ] Kitayuta.eval_1 (5 ms)
+[ RUN      ] Kitayuta.eval_2
+[       OK ] Kitayuta.eval_2 (3 ms)
+[ RUN      ] Kitayuta.eval_3
+[       OK ] Kitayuta.eval_3 (3 ms)
+[ RUN      ] Kitayuta.eval_4
+[       OK ] Kitayuta.eval_4 (3 ms)
+[ RUN      ] Kitayuta.print
+[       OK ] Kitayuta.print (17 ms)
+[ RUN      ] Kitayuta.solve
+[       OK ] Kitayuta.solve (10 ms)
+[----------] 7 tests from Kitayuta (88 ms total)
 
 [----------] Global test environment tear-down
 [==========] 7 tests from 1 test case ran. (132 ms total)
@@ -131,16 +131,16 @@ Running main() from gtest_main.cc
 ==14225==
 ==14225== For counts of detected and suppressed errors, rerun with: -v
 ==14225== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
-File 'Collatz.c++'
+File 'Kitayuta.c++'
 Lines executed:100.00% of 17
 Branches executed:100.00% of 18
 Taken at least once:61.11% of 18
 Calls executed:89.47% of 19
-Creating 'Collatz.c++.gcov'
-File 'TestCollatz.c++'
+Creating 'Kitayuta.c++.gcov'
+File 'TestKitayuta.c++'
 Lines executed:100.00% of 26
 Branches executed:57.14% of 224
 Taken at least once:28.57% of 224
 Calls executed:54.07% of 209
-Creating 'TestCollatz.c++.gcov'
+Creating 'TestKitayuta.c++.gcov'
 */

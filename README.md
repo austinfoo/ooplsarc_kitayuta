@@ -1,1 +1,0 @@
-# ooplsarc_kitayuta

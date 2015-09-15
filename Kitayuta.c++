@@ -1,5 +1,5 @@
 // ----------------------------
-// projects/collatz/Collatz.c++
+// projects/kitayuta/Kitayuta.c++
 // Copyright (C) 2015
 // Glenn P. Downing
 // ----------------------------
@@ -15,15 +15,15 @@
 #include <utility>  // make_pair, pair
 #include <vector>
 
-#include "Collatz.h"
+#include "Kitayuta.h"
 
 using namespace std;
 
 // ------------
-// collatz_read
+// kitayuta_read
 // ------------
 
-pair<int, int> collatz_read (const string& s) {
+pair<int, int> kitayuta_read (const string& s) {
     istringstream sin(s);
     int i;
     int j;
@@ -31,10 +31,10 @@ pair<int, int> collatz_read (const string& s) {
     return make_pair(i, j);}
 
 // ------------
-// collatz_eval
+// kitayuta_eval
 // ------------
 
-int collatz_eval (int i, int j)
+int kitayuta_eval (int i, int j)
 {
   // Initialize variables
   int max_cycles = 0;
@@ -58,7 +58,7 @@ int collatz_eval (int i, int j)
         break;
       }
       
-      // Compute one iteration of Collatz
+      // Compute one iteration of Kitayuta
       if (val & 1) {
 	    val = 3 * val + 1;
       } else {
@@ -78,21 +78,21 @@ int collatz_eval (int i, int j)
 }
 
 // -------------
-// collatz_print
+// kitayuta_print
 // -------------
 
-void collatz_print (ostream& w, int i, int j, int v) {
+void kitayuta_print (ostream& w, int i, int j, int v) {
     w << i << " " << j << " " << v << endl;}
 
 // -------------
-// collatz_solve
+// kitayuta_solve
 // -------------
 
-void collatz_solve (istream& r, ostream& w) {
+void kitayuta_solve (istream& r, ostream& w) {
     string s;
     while (getline(r, s)) {
-        const pair<int, int> p = collatz_read(s);
+        const pair<int, int> p = kitayuta_read(s);
         const int            i = p.first;
         const int            j = p.second;
-        const int            v = collatz_eval(i, j);
-        collatz_print(w, i, j, v);}}
+        const int            v = kitayuta_eval(i, j);
+        kitayuta_print(w, i, j, v);}}

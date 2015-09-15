@@ -1,5 +1,5 @@
 // -------------------------------
-// projects/collatz/RunCollatz.c++
+// projects/kitayuta/RunKitayuta.c++
 // Copyright (C) 2015
 // Glenn P. Downing
 // -------------------------------
@@ -10,7 +10,7 @@
 
 #include <iostream> // cin, cout
 
-#include "Collatz.h"
+#include "Kitayuta.h"
 
 // ----
 // main
@@ -18,15 +18,15 @@
 
 int main () {
     using namespace std;
-    collatz_solve(cin, cout);
+    kitayuta_solve(cin, cout);
     return 0;}
 
 /*
-% g++ -pedantic -std=c++11 -Wall Collatz.c++ RunCollatz.c++ -o RunCollatz
+% g++ -pedantic -std=c++11 -Wall Kitayuta.c++ RunKitayuta.c++ -o RunKitayuta
 
 
 
-% cat RunCollatz.in
+% cat RunKitayuta.in
 1 10
 100 200
 201 210
@@ -34,11 +34,11 @@ int main () {
 
 
 
-% RunCollatz < RunCollatz.in > RunCollatz.out
+% RunKitayuta < RunKitayuta.in > RunKitayuta.out
 
 
 
-% cat RunCollatz.out
+% cat RunKitayuta.out
 1 10 1
 100 200 1
 201 210 1
