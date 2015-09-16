@@ -83,8 +83,8 @@ std::string kitayuta_eval (const std::string& in)
 // kitayuta_print
 // -------------
 
-void kitayuta_print (ostream& w, const std::string& in, const std::string& out) {
-  w << in << " " << out << std::endl;
+void kitayuta_print (ostream& w, const std::string& out) {
+  w << out << std::endl;
 }
 
 // -------------
@@ -96,6 +96,6 @@ void kitayuta_solve (istream& r, ostream& w) {
   while (getline(r, s)) {
     const std::string in = kitayuta_read(s);
     const std::string out = kitayuta_eval(in);
-    kitayuta_print(w, in, out);
+    kitayuta_print(w, out);
   }
 }

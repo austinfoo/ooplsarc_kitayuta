@@ -6,9 +6,8 @@
 // includes
 // --------
 
-#include <iostream> // istream, ostream
-#include <string>   // string
-#include <utility>  // pair
+#include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -17,9 +16,9 @@ using namespace std;
 // ------------
 
 /**
- * read two ints
+ * read a string
  * @param s a string
- * @return a pair of ints, representing the beginning and end of a range, [i, j]
+ * @return a string representing the input string
  */
 std::string kitayuta_read (const string& s);
 
@@ -28,9 +27,8 @@ std::string kitayuta_read (const string& s);
 // ------------
 
 /**
- * @param i the beginning of the range, inclusive
- * @param j the end       of the range, inclusive
- * @return the max cycle length of the range [i, j]
+ * @param in the string in which to insert a char to make a palidrome
+ * @return the answer
  */
 std::string kitayuta_eval (const std::string& in);
 
@@ -41,11 +39,9 @@ std::string kitayuta_eval (const std::string& in);
 /**
  * print three ints
  * @param w an ostream
- * @param i the beginning of the range, inclusive
- * @param j the end       of the range, inclusive
- * @param v the max cycle length
+ * @param out the answer
  */
-void kitayuta_print (ostream& w, const std::string& in, const std::string& out);
+void kitayuta_print (ostream& w, const std::string& out);
 
 // -------------
 // kitayuta_solve

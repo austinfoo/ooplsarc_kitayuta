@@ -61,8 +61,8 @@ TEST(KitayutaFixture, eval_7) {
 
 TEST(KitayutaFixture, print) {
     ostringstream w;
-    kitayuta_print(w, "abab", "babab");
-    EXPECT_EQ("abab babab\n", w.str());}
+    kitayuta_print(w, "babab");
+    EXPECT_EQ("babab\n", w.str());}
 
 // -----
 // solve
@@ -72,5 +72,5 @@ TEST(KitayutaFixture, solve) {
     istringstream r("a\naa\naaa\naba\nabba\nabc\nabab\n");
     ostringstream w;
     kitayuta_solve(r, w);
-    EXPECT_EQ("a aa\naa aaa\naaa aaaa\naba abba\nabba abbba\nabc NA\nabab babab\n", w.str());}
+    EXPECT_EQ("aa\naaa\naaaa\nabba\nabbba\nNA\nbabab\n", w.str());}
 
