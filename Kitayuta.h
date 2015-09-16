@@ -18,7 +18,7 @@ using namespace std;
 /**
  * read a string
  * @param s a string
- * @return a string representing the input string
+ * @return the input string
  */
 std::string kitayuta_read (const string& s);
 
@@ -27,10 +27,10 @@ std::string kitayuta_read (const string& s);
 // ------------
 
 /**
- * @param in the string in which to insert a char to make a palidrome
+ * @param s the input string
  * @return the answer
  */
-std::string kitayuta_eval (const std::string& in);
+std::string kitayuta_eval (const std::string& s);
 
 // -------------
 // kitayuta_print

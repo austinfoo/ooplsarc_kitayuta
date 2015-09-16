@@ -6,9 +6,8 @@
 // includes
 // --------
 
-#include <iostream> // istream, ostream
-#include <string>   // string
-#include <utility>  // pair
+#include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -17,9 +16,9 @@ using namespace std;
 // ------------
 
 /**
- * read two ints
+ * read a string
  * @param s a string
- * @return a pair of ints, representing the beginning and end of a range, [i, j]
+ * @return the input string
  */
 std::string kitayuta_read (const string& s);
 
@@ -28,11 +27,10 @@ std::string kitayuta_read (const string& s);
 // ------------
 
 /**
- * @param i the beginning of the range, inclusive
- * @param j the end       of the range, inclusive
- * @return the max cycle length of the range [i, j]
+ * @param s the input string
+ * @return the answer
  */
-std::string kitayuta_eval (const std::string& in);
+std::string kitayuta_eval (const std::string& s);
 
 // -------------
 // kitayuta_print
@@ -41,11 +39,9 @@ std::string kitayuta_eval (const std::string& in);
 /**
  * print three ints
  * @param w an ostream
- * @param i the beginning of the range, inclusive
- * @param j the end       of the range, inclusive
- * @param v the max cycle length
+ * @param out the answer
  */
-void kitayuta_print (ostream& w, const std::string& in, const std::string& out);
+void kitayuta_print (ostream& w, const std::string& out);
 
 // -------------
 // kitayuta_solve
@@ -94,19 +90,19 @@ std::string kitayuta_read (const std::string& s) {
 // kitayuta_eval
 // ------------
 
-bool is_palindrome (int b, int r, const std::string& str)
+bool is_palindrome (int b, int r, const std::string& s)
 {
   while (b < r) {
-    if (str[b] != str[r]) return false;
+    if (s[b] != s[r]) return false;
     ++b;
     --r;
   }
   return true;
 }
 
-std::string kitayuta_eval (const std::string& in)
+std::string kitayuta_eval (const std::string& s)
 {
-  std::string str (in);
+  std::string str (s);
   int b = 0;
   int r = str.size() - 1;
 
@@ -143,8 +139,8 @@ std::string kitayuta_eval (const std::string& in)
 // kitayuta_print
 // -------------
 
-void kitayuta_print (ostream& w, const std::string& in, const std::string& out) {
-  w << in << " " << out << std::endl;
+void kitayuta_print (ostream& w, const std::string& out) {
+  w << out << std::endl;
 }
 
 // -------------
@@ -156,7 +152,7 @@ void kitayuta_solve (istream& r, ostream& w) {
   while (getline(r, s)) {
     const std::string in = kitayuta_read(s);
     const std::string out = kitayuta_eval(in);
-    kitayuta_print(w, in, out);
+    kitayuta_print(w, out);
   }
 }
 

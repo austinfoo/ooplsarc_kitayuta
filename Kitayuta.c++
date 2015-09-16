@@ -34,19 +34,19 @@ std::string kitayuta_read (const std::string& s) {
 // kitayuta_eval
 // ------------
 
-bool is_palindrome (int b, int r, const std::string& str)
+bool is_palindrome (int b, int r, const std::string& s)
 {
   while (b < r) {
-    if (str[b] != str[r]) return false;
+    if (s[b] != s[r]) return false;
     ++b;
     --r;
   }
   return true;
 }
 
-std::string kitayuta_eval (const std::string& in)
+std::string kitayuta_eval (const std::string& s)
 {
-  std::string str (in);
+  std::string str (s);
   int b = 0;
   int r = str.size() - 1;
 
