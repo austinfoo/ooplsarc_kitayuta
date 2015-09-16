@@ -26,7 +26,7 @@ using namespace std;
  * @param s a string
  * @return a pair of ints, representing the beginning and end of a range, [i, j]
  */
-pair<int, int> kitayuta_read (const string& s);
+std::string kitayuta_read (const string& s);
 
 // ------------
 // kitayuta_eval
@@ -37,7 +37,7 @@ pair<int, int> kitayuta_read (const string& s);
  * @param j the end       of the range, inclusive
  * @return the max cycle length of the range [i, j]
  */
-int kitayuta_eval (int i, int j);
+std::string kitayuta_eval (const std::string& in);
 
 // -------------
 // kitayuta_print
@@ -50,7 +50,7 @@ int kitayuta_eval (int i, int j);
  * @param j the end       of the range, inclusive
  * @param v the max cycle length
  */
-void kitayuta_print (ostream& w, int i, int j, int v);
+void kitayuta_print (ostream& w, const std::string& in, const std::string& out);
 
 // -------------
 // kitayuta_solve

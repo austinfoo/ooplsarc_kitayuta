@@ -23,76 +23,79 @@ using namespace std;
 // kitayuta_read
 // ------------
 
-pair<int, int> kitayuta_read (const string& s) {
-    istringstream sin(s);
-    int i;
-    int j;
-    sin >> i >> j;
-    return make_pair(i, j);}
+std::string kitayuta_read (const std::string& s) {
+  std::istringstream sin(s);
+  std::string in;
+  sin >> in;
+  return in;
+}
 
 // ------------
 // kitayuta_eval
 // ------------
 
-int kitayuta_eval (int i, int j)
+bool is_palindrome (int b, int r, const std::string& str)
 {
-  // Initialize variables
-  int max_cycles = 0;
-  
-  // Setup cycles cache
-  std::vector<int> cycles_cache (1000000, 0);
-   
-   // Tricky.  Make sure the inputs are ordered.
-  if (i > j) std::swap(i, j);
-  
-  // Loop through the input range
-  for (int k = i; k <= j; ++k) {
-    int cycles = 1;
-    int val = k;
-      
-    while (val != 1) 
-    {
-      // If val is in the cache then use the cached value and break out of the loop
-      if (val < static_cast<int>(cycles_cache.size()) && cycles_cache[val]) {
-        cycles += cycles_cache[val] - 1;
-        break;
-      }
-      
-      // Compute one iteration of Kitayuta
-      if (val & 1) {
-	    val = 3 * val + 1;
-      } else {
-	    val = val / 2;
-      }
-      ++cycles;
-    }
-    
-    // Save the number of cycles in the cache
-    cycles_cache[k] = cycles;
-    
-    // Save the cycles if it is the max we have seen so far
-    max_cycles = std::max (max_cycles, cycles);
+  while (b < r) {
+    if (str[b] != str[r]) return false;
+    ++b;
+    --r;
   }
-  
-  return max_cycles;
+  return true;
+}
+
+std::string kitayuta_eval (const std::string& in)
+{
+  std::string str (in);
+  int b = 0;
+  int r = str.size() - 1;
+
+  while (b < r)  {
+    
+    if (str[b] != str[r]) {
+      // Can I insert a char from the back to the front
+      if (is_palindrome(b, r-1, str)) {
+	str.insert(str.begin()+b, str[r]);
+
+      } 
+      // Can I insert a char from the front to the back
+      else if (is_palindrome(b+1, r, str)) {
+	str.insert(str.begin()+r+1, str[b]);
+      }
+      else {
+	str = "NA";
+      }
+      return str;
+    }
+   
+    ++b;
+    --r;
+  }
+
+  // The input was a palindrome.  If the string was odd, then b and r point to same char.
+  // Insert *b in front of b to maintain the palindrome.  If the string was even, then b
+  // is one past r.  Insert and char in front of b to maintain the palindrome.  
+  str.insert(str.begin()+b, str[b]);
+  return str;
 }
 
 // -------------
 // kitayuta_print
 // -------------
 
-void kitayuta_print (ostream& w, int i, int j, int v) {
-    w << i << " " << j << " " << v << endl;}
+void kitayuta_print (ostream& w, const std::string& in, const std::string& out) {
+  w << in << " " << out << std::endl;
+}
 
 // -------------
 // kitayuta_solve
 // -------------
 
 void kitayuta_solve (istream& r, ostream& w) {
-    string s;
-    while (getline(r, s)) {
-        const pair<int, int> p = kitayuta_read(s);
-        const int            i = p.first;
-        const int            j = p.second;
-        const int            v = kitayuta_eval(i, j);
-        kitayuta_print(w, i, j, v);}}
+  std::string s;
+  while (getline(r, s)) {
+    const std::string in = kitayuta_read(s);
+    const std::string out = kitayuta_eval(in);
+    kitayuta_print(w, in, out);
+  }
+}
