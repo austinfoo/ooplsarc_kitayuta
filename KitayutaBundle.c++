@@ -1,11 +1,11 @@
 // --------------------------
-// projects/collatz/Collatz.h
+// projects/kitayuta/Kitayuta.h
 // Copyright (C) 2015
 // Glenn P. Downing
 // --------------------------
 
-#ifndef Collatz_h
-#define Collatz_h
+#ifndef Kitayuta_h
+#define Kitayuta_h
 
 // --------
 // includes
@@ -18,7 +18,7 @@
 using namespace std;
 
 // ------------
-// collatz_read
+// kitayuta_read
 // ------------
 
 /**
@@ -26,10 +26,10 @@ using namespace std;
  * @param s a string
  * @return a pair of ints, representing the beginning and end of a range, [i, j]
  */
-pair<int, int> collatz_read (const string& s);
+std::string kitayuta_read (const string& s);
 
 // ------------
-// collatz_eval
+// kitayuta_eval
 // ------------
 
 /**
@@ -37,10 +37,10 @@ pair<int, int> collatz_read (const string& s);
  * @param j the end       of the range, inclusive
  * @return the max cycle length of the range [i, j]
  */
-int collatz_eval (int i, int j);
+std::string kitayuta_eval (const std::string& in);
 
 // -------------
-// collatz_print
+// kitayuta_print
 // -------------
 
 /**
@@ -50,21 +50,21 @@ int collatz_eval (int i, int j);
  * @param j the end       of the range, inclusive
  * @param v the max cycle length
  */
-void collatz_print (ostream& w, int i, int j, int v);
+void kitayuta_print (ostream& w, const std::string& in, const std::string& out);
 
 // -------------
-// collatz_solve
+// kitayuta_solve
 // -------------
 
 /**
  * @param r an istream
  * @param w an ostream
  */
-void collatz_solve (istream& r, ostream& w);
+void kitayuta_solve (istream& r, ostream& w);
 
-#endif // Collatz_h
+#endif // Kitayuta_h
 // ----------------------------
-// projects/collatz/Collatz.c++
+// projects/kitayuta/Kitayuta.c++
 // Copyright (C) 2015
 // Glenn P. Downing
 // ----------------------------
@@ -85,84 +85,87 @@ void collatz_solve (istream& r, ostream& w);
 using namespace std;
 
 // ------------
-// collatz_read
+// kitayuta_read
 // ------------
 
-pair<int, int> collatz_read (const string& s) {
-    istringstream sin(s);
-    int i;
-    int j;
-    sin >> i >> j;
-    return make_pair(i, j);}
+std::string kitayuta_read (const std::string& s) {
+  std::istringstream sin(s);
+  std::string in;
+  sin >> in;
+  return in;
+}
 
 // ------------
-// collatz_eval
+// kitayuta_eval
 // ------------
 
-int collatz_eval (int i, int j)
+bool is_palindrome (int b, int r, const std::string& str)
 {
-  // Initialize variables
-  int max_cycles = 0;
-  
-  // Setup cycles cache
-  std::vector<int> cycles_cache (1000000, 0);
-   
-   // Tricky.  Make sure the inputs are ordered.
-  if (i > j) std::swap(i, j);
-  
-  // Loop through the input range
-  for (int k = i; k <= j; ++k) {
-    int cycles = 1;
-    int val = k;
-      
-    while (val != 1) 
-    {
-      // If val is in the cache then use the cached value and break out of the loop
-      if (val < static_cast<int>(cycles_cache.size()) && cycles_cache[val]) {
-        cycles += cycles_cache[val] - 1;
-        break;
-      }
-      
-      // Compute one iteration of Collatz
-      if (val & 1) {
-	    val = 3 * val + 1;
-      } else {
-	    val = val / 2;
-      }
-      ++cycles;
-    }
-    
-    // Save the number of cycles in the cache
-    cycles_cache[k] = cycles;
-    
-    // Save the cycles if it is the max we have seen so far
-    max_cycles = std::max (max_cycles, cycles);
+  while (b < r) {
+    if (str[b] != str[r]) return false;
+    ++b;
+    --r;
   }
-  
-  return max_cycles;
+  return true;
+}
+
+std::string kitayuta_eval (const std::string& in)
+{
+  std::string str (in);
+  int b = 0;
+  int r = str.size() - 1;
+
+  while (b < r)  {
+    
+    if (str[b] != str[r]) {
+      // Can I insert a char from the back to the front
+      if (is_palindrome(b, r-1, str)) {
+	str.insert(str.begin()+b, str[r]);
+
+      } 
+      // Can I insert a char from the front to the back
+      else if (is_palindrome(b+1, r, str)) {
+	str.insert(str.begin()+r+1, str[b]);
+      }
+      else {
+	str = "NA";
+      }
+      return str;
+    }
+   
+    ++b;
+    --r;
+  }
+
+  // The input was a palindrome.  If the string was odd, then b and r point to same char.
+  // Insert *b in front of b to maintain the palindrome.  If the string was even, then b
+  // is one past r.  Insert and char in front of b to maintain the palindrome.  
+  str.insert(str.begin()+b, str[b]);
+  return str;
 }
 
 // -------------
-// collatz_print
+// kitayuta_print
 // -------------
 
-void collatz_print (ostream& w, int i, int j, int v) {
-    w << i << " " << j << " " << v << endl;}
+void kitayuta_print (ostream& w, const std::string& in, const std::string& out) {
+  w << in << " " << out << std::endl;
+}
 
 // -------------
-// collatz_solve
+// kitayuta_solve
 // -------------
 
-void collatz_solve (istream& r, ostream& w) {
-    string s;
-    while (getline(r, s)) {
-        const pair<int, int> p = collatz_read(s);
-        const int            i = p.first;
-        const int            j = p.second;
-        const int            v = collatz_eval(i, j);
-        collatz_print(w, i, j, v);}}
+void kitayuta_solve (istream& r, ostream& w) {
+  std::string s;
+  while (getline(r, s)) {
+    const std::string in = kitayuta_read(s);
+    const std::string out = kitayuta_eval(in);
+    kitayuta_print(w, in, out);
+  }
+}
 // -------------------------------
-// projects/collatz/RunCollatz.c++
+// projects/kitayuta/RunKitayuta.c++
 // Copyright (C) 2015
 // Glenn P. Downing
 // -------------------------------
@@ -181,15 +184,15 @@ void collatz_solve (istream& r, ostream& w) {
 
 int main () {
     using namespace std;
-    collatz_solve(cin, cout);
+    kitayuta_solve(cin, cout);
     return 0;}
 
 /*
-% g++ -pedantic -std=c++11 -Wall Collatz.c++ RunCollatz.c++ -o RunCollatz
+% g++ -pedantic -std=c++11 -Wall Kitayuta.c++ RunKitayuta.c++ -o RunKitayuta
 
 
 
-% cat RunCollatz.in
+% cat RunKitayuta.in
 1 10
 100 200
 201 210
@@ -197,11 +200,11 @@ int main () {
 
 
 
-% RunCollatz < RunCollatz.in > RunCollatz.out
+% RunKitayuta < RunKitayuta.in > RunKitayuta.out
 
 
 
-% cat RunCollatz.out
+% cat RunKitayuta.out
 1 10 1
 100 200 1
 201 210 1

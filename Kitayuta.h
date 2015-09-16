@@ -1,8 +1,3 @@
-// --------------------------
-// projects/kitayuta/Kitayuta.h
-// Copyright (C) 2015
-// Glenn P. Downing
-// --------------------------
 
 #ifndef Kitayuta_h
 #define Kitayuta_h
@@ -62,4 +57,4 @@ void kitayuta_print (ostream& w, const std::string& in, const std::string& out);
  */
 void kitayuta_solve (istream& r, ostream& w);
 
-#endif // Kitayuta_h
+#endif
